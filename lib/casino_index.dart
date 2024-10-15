@@ -19,4 +19,24 @@ class CasinoIndex {
       return jackpotType.notJackpot;
     }
   }
+
+  static String imageSelector(int result) {
+    switch(result) {
+      case 1 :
+        return "bar.png";
+      case 2 :
+        return "cerise.png";
+      case 3 :
+        return "cloche.png";
+      case 4 :
+        return "fer-a-cheval.png";
+      case 5 :
+        return "pasteque.png";
+      case 6 :
+        return "diamant.png";
+      case 7 :
+        return "sept.png";
+    }
+    return "ERROR";
+  }
 }

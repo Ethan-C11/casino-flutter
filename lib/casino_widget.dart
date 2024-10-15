@@ -45,6 +45,7 @@ class _CasinoWidgetState extends State<CasinoWidget> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text(_casinoResult.toString()),
+          Image(image: AssetImage("images/bar.png")),
           Builder(
             builder: (context) {
               switch (_isJackpot) {

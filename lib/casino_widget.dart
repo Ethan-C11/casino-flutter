@@ -16,11 +16,18 @@ class _CasinoWidgetState extends State<CasinoWidget> {
   late List<String> _casinoImages;
   jackpotType? _isJackpot = null;
 
+  Color _baseColor = const Color.fromARGB(255, 255, 255, 255);
+  Color _jackpotColor = const Color.fromARGB(255, 252, 252, 3);
+  Color _superJackpotColor = const Color.fromARGB(255, 255, 177, 105);
+
+  late Color _backgroundColor;
+
   @override
   void initState() {
     List<int> casinoResult = CasinoIndex.playCasino();
     setCasinoResult(casinoResult[0], casinoResult[1], casinoResult[2]);
     _casinoImages = [CasinoIndex.imageSelector(_casinoResult[0]), CasinoIndex.imageSelector(_casinoResult[1]), CasinoIndex.imageSelector(_casinoResult[2])];
+    _backgroundColor = _baseColor;
     super.initState();
   }
 
@@ -42,16 +49,35 @@ class _CasinoWidgetState extends State<CasinoWidget> {
     });
   }
 
+  void setCurrentBackground(jackpotType type) {
+    late Color colorTemp;
+    switch(type){
+      case jackpotType.notJackpot :
+        colorTemp = _baseColor;
+      case jackpotType.jackpot:
+        colorTemp = _jackpotColor;
+      case jackpotType.tripleSeven:
+        colorTemp = _superJackpotColor;
+      default :
+        colorTemp = _baseColor;
+    }
+    setState(() {
+      _backgroundColor = colorTemp;
+    });
+  }
+
   void _onButtonPressed() {
     List<int> casinoResult = CasinoIndex.playCasino();
     setCasinoResult(casinoResult[0], casinoResult[1], casinoResult[2]);
     setCasinoImages(casinoResult[0], casinoResult[1], casinoResult[2]);
-    setIsJackpot(CasinoIndex.isJackpot(casinoResult));
+    jackpotType type = CasinoIndex.isJackpot(casinoResult);
+    setIsJackpot(type);
+    setCurrentBackground(type);
   }
 
   @override
   Widget build(BuildContext context) {
-    TextStyle winningSentenceStyle() {
+        TextStyle winningSentenceStyle() {
       return TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
     }
 
@@ -121,6 +147,7 @@ class _CasinoWidgetState extends State<CasinoWidget> {
     }
 
     return Scaffold(
+      backgroundColor: _backgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),

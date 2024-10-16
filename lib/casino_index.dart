@@ -2,6 +2,7 @@ import 'dart:math';
 import 'enum_jackpot.dart';
 
 class CasinoIndex {
+
   static List<int> playCasino() {
     return [Random().nextInt(7)+1, Random().nextInt(7)+1, Random().nextInt(7)+1];
   }
@@ -21,22 +22,7 @@ class CasinoIndex {
   }
 
   static String imageSelector(int result) {
-    switch(result) {
-      case 1 :
-        return "bar.png";
-      case 2 :
-        return "cerise.png";
-      case 3 :
-        return "cloche.png";
-      case 4 :
-        return "fer-a-cheval.png";
-      case 5 :
-        return "pasteque.png";
-      case 6 :
-        return "diamant.png";
-      case 7 :
-        return "sept.png";
-    }
-    return "ERROR";
+    List<String> images = ["bar.png", "cerise.png", "cloche.png", "fer-a-cheval.png", "pasteque.png", "diamant.png", "sept.png"];
+    return images[result-1];
   }
 }
